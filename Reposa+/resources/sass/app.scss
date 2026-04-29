@@ -1,0 +1,46 @@
+// Custom Variables
+$primary: #182447;
+$secondary: #758ef9;
+$info: #42569a;
+$light: #b1cdff;
+
+// Import Bootstrap
+@import "bootstrap/scss/bootstrap";
+
+// Custom styles for Reposa+
+body {
+    background-color: #f8fafc;
+    color: #182447;
+    font-family: 'Inter', sans-serif;
+}
+
+.hero-section {
+    background: linear-gradient(135deg, #182447 0%, #42569a 100%);
+    color: white;
+    padding: 100px 0;
+}
+
+.card-product {
+    border: none;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    background: white;
+    border-radius: 15px;
+    overflow: hidden;
+}
+
+.card-product:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(24, 36, 71, 0.1);
+}
+
+.btn-primary {
+    background-color: #182447;
+    border-color: #182447;
+    padding: 10px 25px;
+    border-radius: 8px;
+}
+
+.btn-primary:hover {
+    background-color: #42569a;
+    border-color: #42569a;
+}

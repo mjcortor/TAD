@@ -1,0 +1,6 @@
+# Reposa+ Assistant Rules
+This project follows the official Antigravity configuration located in the workspace root:
+- Rules: `../.agents/rules/`
+- Skills: `../.agents/skills/`
+
+Please refer to `../.agents/rules/reposa_core.md` for project-specific identity and branding.
