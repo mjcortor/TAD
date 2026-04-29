@@ -60,7 +60,10 @@
                                             <p class="card-text text-muted small mb-3">{{ Str::limit($product->description, 60) }}</p>
                                             <div class="d-flex justify-content-between align-items-center">
                                                 <span class="fs-4 fw-bold text-primary">{{ number_format($product->price, 2) }}€</span>
-                                                <button class="btn btn-outline-primary btn-sm rounded-circle"><i class="bi bi-cart-plus"></i></button>
+                                                <form action="{{ route('cart.add', $product) }}" method="POST">
+                                                    @csrf
+                                                    <button type="submit" class="btn btn-outline-primary btn-sm rounded-circle"><i class="bi bi-cart-plus"></i></button>
+                                                </form>
                                             </div>
                                         </div>
                                     </a>
