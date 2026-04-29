@@ -60,7 +60,12 @@
                         <a class="nav-link position-relative ms-lg-3" href="/cart">
                             <i class="bi bi-cart3 fs-5"></i>
                             <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                                0
+                                @php
+                                    $cartCount = Auth::check() 
+                                        ? \App\Models\CartItem::where('user_id', Auth::id())->sum('quantity')
+                                        : collect(session()->get('cart', []))->sum('quantity');
+                                @endphp
+                                {{ $cartCount }}
                             </span>
                         </a>
                     </li>
@@ -69,7 +74,23 @@
         </div>
     </nav>
 
-    <main>
+    <main class="container mt-4">
+        @if(session('success'))
+            <div class="alert alert-success alert-dismissible fade show shadow-sm" role="alert">
+                <i class="bi bi-check-circle-fill me-2"></i>
+                {{ session('success') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        @endif
+
+        @if(session('error'))
+            <div class="alert alert-danger alert-dismissible fade show shadow-sm" role="alert">
+                <i class="bi bi-exclamation-triangle-fill me-2"></i>
+                {{ session('error') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        @endif
+
         @yield('content')
     </main>
 

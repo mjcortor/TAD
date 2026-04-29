@@ -8,15 +8,28 @@ use App\Models\Product;
 use App\Models\CartItem;
 use App\Models\Order;
 use App\Models\OrderItem;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\OrderConfirmed;
 
 class CartController extends Controller
 {
     public function index()
     {
-        $user = Auth::user();
-        $cartItems = CartItem::where('user_id', $user->id)->with('product')->get();
+        if (Auth::check()) {
+            $cartItems = CartItem::where('user_id', Auth::id())->with('product')->get();
+        } else {
+            $sessionCart = session()->get('cart', []);
+            $cartItems = collect($sessionCart)->map(function ($item, $productId) {
+                return (object) [
+                    'id' => $productId,
+                    'product_id' => $productId,
+                    'quantity' => $item['quantity'],
+                    'product' => Product::find($productId)
+                ];
+            });
+        }
+
         $total = $cartItems->sum(function($item) {
             return $item->product->price * $item->quantity;
         });
@@ -26,42 +39,92 @@ class CartController extends Controller
 
     public function add(Product $product)
     {
-        $user = Auth::user();
+        if (Auth::check()) {
+            $cartItem = CartItem::where('user_id', Auth::id())
+                                ->where('product_id', $product->id)
+                                ->first();
 
-        $cartItem = CartItem::where('user_id', $user->id)
-                            ->where('product_id', $product->id)
-                            ->first();
-
-        if ($cartItem) {
-            $cartItem->increment('quantity');
+            if ($cartItem) {
+                $cartItem->increment('quantity');
+            } else {
+                CartItem::create([
+                    'user_id' => Auth::id(),
+                    'product_id' => $product->id,
+                    'quantity' => 1
+                ]);
+            }
         } else {
-            CartItem::create([
-                'user_id' => $user->id,
-                'product_id' => $product->id,
-                'quantity' => 1
-            ]);
+            $cart = session()->get('cart', []);
+            if (isset($cart[$product->id])) {
+                $cart[$product->id]['quantity']++;
+            } else {
+                $cart[$product->id] = [
+                    'quantity' => 1
+                ];
+            }
+            session()->put('cart', $cart);
         }
 
         return redirect()->route('cart.index')->with('success', 'Producto añadido al carrito');
     }
 
-    public function update(Request $request, CartItem $cartItem)
+    public function update(Request $request, $id)
     {
         $request->validate(['quantity' => 'required|integer|min:1']);
-        $cartItem->update(['quantity' => $request->quantity]);
+
+        if (Auth::check()) {
+            $cartItem = CartItem::findOrFail($id);
+            $cartItem->update(['quantity' => $request->quantity]);
+        } else {
+            $cart = session()->get('cart', []);
+            if (isset($cart[$id])) {
+                $cart[$id]['quantity'] = $request->quantity;
+                session()->put('cart', $cart);
+            }
+        }
 
         return back()->with('success', 'Carrito actualizado');
     }
 
-    public function remove(CartItem $cartItem)
+    public function remove($id)
     {
-        $cartItem->delete();
+        if (Auth::check()) {
+            $cartItem = CartItem::findOrFail($id);
+            $cartItem->delete();
+        } else {
+            $cart = session()->get('cart', []);
+            if (isset($cart[$id])) {
+                unset($cart[$id]);
+                session()->put('cart', $cart);
+            }
+        }
         return back()->with('success', 'Producto eliminado del carrito');
     }
 
     public function checkout()
     {
         $user = Auth::user();
+        
+        // Sincronizar carrito de sesión si existe antes de proceder
+        $sessionCart = session()->get('cart', []);
+        if (!empty($sessionCart)) {
+            foreach ($sessionCart as $productId => $item) {
+                $cartItem = CartItem::where('user_id', $user->id)
+                                    ->where('product_id', $productId)
+                                    ->first();
+                if ($cartItem) {
+                    $cartItem->increment('quantity', $item['quantity']);
+                } else {
+                    CartItem::create([
+                        'user_id' => $user->id,
+                        'product_id' => $productId,
+                        'quantity' => $item['quantity']
+                    ]);
+                }
+            }
+            session()->forget('cart');
+        }
+
         $cartItems = CartItem::where('user_id', $user->id)->with('product')->get();
 
         if ($cartItems->isEmpty()) {
@@ -90,7 +153,10 @@ class CartController extends Controller
             $item->delete(); // Vaciar el carrito
         }
 
-        return redirect()->route('orders.index')->with('success', '¡Pedido realizado con éxito!');
+        // Enviar el correo de confirmación
+        Mail::to($user->email)->send(new OrderConfirmed($order));
+
+        return redirect()->route('orders.index')->with('success', '¡Pedido realizado con éxito! Se ha enviado un ticket a tu correo.');
     }
 
     public function orders()
