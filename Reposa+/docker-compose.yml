@@ -1,0 +1,124 @@
+version: "3.8"
+
+services:
+  # ------------------------------------------------------------------
+  # Laravel App (PHP + Nginx)
+  # ------------------------------------------------------------------
+  app:
+    build:
+      context: .
+      dockerfile: docker/php/Dockerfile
+    container_name: reposa_app
+    volumes:
+      - ./:/var/www/html
+    depends_on:
+      - mysql
+      - redis
+      - mailhog
+    environment:
+      - APP_ENV=local
+      - APP_DEBUG=true
+      - DB_CONNECTION=mysql
+      - DB_HOST=mysql
+      - DB_PORT=3306
+      - DB_DATABASE=reposaplus
+      - DB_USERNAME=root
+      - DB_PASSWORD=root
+      - REDIS_HOST=redis
+      - REDIS_PASSWORD=null
+      - REDIS_PORT=6379
+      - MAIL_MAILER=smtp
+      - MAIL_HOST=mailhog
+      - MAIL_PORT=1025
+      - MAIL_USERNAME=null
+      - MAIL_PASSWORD=null
+      - MAIL_ENCRYPTION=null
+      - MAIL_FROM_ADDRESS="hello@reposaplus.com"
+      - MAIL_FROM_NAME="Reposa+"
+    networks:
+      - reposa_network
+
+  # ------------------------------------------------------------------
+  # Laravel Queue Worker
+  # ------------------------------------------------------------------
+  queue:
+    build:
+      context: .
+      dockerfile: docker/php/Dockerfile
+    container_name: reposa_queue
+    command: php artisan queue:work --tries=3
+    volumes:
+      - ./:/var/www/html
+    depends_on:
+      - mysql
+      - redis
+    networks:
+      - reposa_network
+
+  # ------------------------------------------------------------------
+  # Nginx Web Server
+  # ------------------------------------------------------------------
+  nginx:
+    image: nginx:alpine
+    container_name: reposa_nginx
+    ports:
+      - "8080:80"
+    volumes:
+      - ./:/var/www/html
+      - ./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
+    depends_on:
+      - app
+    networks:
+      - reposa_network
+
+  # ------------------------------------------------------------------
+  # MySQL Database
+  # ------------------------------------------------------------------
+  mysql:
+    image: mysql:8.0
+    container_name: reposa_mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: reposaplus
+    ports:
+      - "3307:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    networks:
+      - reposa_network
+
+  # ------------------------------------------------------------------
+  # Redis
+  # ------------------------------------------------------------------
+  redis:
+    image: redis:7-alpine
+    container_name: reposa_redis
+    ports:
+      - "6380:6379"
+    networks:
+      - reposa_network
+
+  # ------------------------------------------------------------------
+  # MailHog (SMTP + Web UI)
+  # ------------------------------------------------------------------
+  mailhog:
+    image: mailhog/mailhog:latest
+    container_name: reposa_mailhog
+    ports:
+      - "1025:1025"   # SMTP server
+      - "8025:8025"   # Web UI
+    networks:
+      - reposa_network
+
+# ------------------------------------------------------------------
+# Volumes
+# ------------------------------------------------------------------
+volumes:
+  mysql_data:
+
+# ------------------------------------------------------------------
+# Networks
+# ------------------------------------------------------------------
+networks:
+  reposa_network:
+    driver: bridge
