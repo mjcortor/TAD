@@ -1,10 +1,24 @@
-# Memoria del Proyecto: Reposa+
-## Desarrollo de un E-commerce Especializado en Descanso Ergonómico Mediante Laravel y Bootstrap 5
+<style>
+body { font-family: "Times New Roman", Times, serif; font-size: 12pt; line-height: 1.5; text-align: justify; }
+h1, h2, h3, h4 { font-family: "Arial", sans-serif; text-align: left; page-break-after: avoid; }
+h1 { font-size: 18pt; text-align: center; }
+h2 { font-size: 16pt; margin-top: 24pt; border-bottom: 1px solid #ccc; padding-bottom: 5px; }
+img { max-width: 100%; height: auto; display: block; margin: 0 auto; page-break-inside: avoid; }
+pre, blockquote, table, figure { page-break-inside: avoid; }
+p { margin-bottom: 12pt; }
+.portada { text-align: center; margin-top: 100px; margin-bottom: 150px; }
+.portada h1 { font-size: 24pt; border: none; }
+.portada h3 { font-size: 14pt; font-weight: normal; margin-top: 50px; text-align: center; }
+</style>
 
-**Asignatura: Tecnologías Avanzadas de Desarrollo (TAD)**
-**Convocatoria Oficial**
+<div class="portada">
+  <h1>Memoria del Proyecto: Reposa+</h1>
+  <h3>Desarrollo de un E-commerce Especializado en Descanso Ergonómico Mediante Laravel y Bootstrap 5</h3>
+  <br><br><br>
+  <h3>Asignatura: Tecnologías Avanzadas de Desarrollo (TAD)<br>Convocatoria Oficial</h3>
+</div>
 
----
+<div style="page-break-after: always;"></div>
 
 ### Project Definition (English)
 **Reposa+** is an advanced, hyper-specialized e-commerce platform dedicated to ergonomic rest and wellness. Built from scratch using Laravel 11 and Docker, it offers a fast, secure, and accessible shopping experience. Key features include role-based access control (RBAC), an atomic transactional checkout process, multi-language support (i18n), and a custom-built shopping cart capable of handling guest sessions and authenticated users alike.
@@ -15,16 +29,16 @@
 ---
 
 ## Índice General
-0. Abstract / Definición del Proyecto
-1. Introducción
-2. Estado del Arte
-3. Objetivos y Requisitos
-4. Diseño y Arquitectura
-5. Desarrollo e Implementación
-6. Pruebas y Resultados
-7. Conclusiones y Trabajo Futuro
-8. Bibliografía
-9. Anexo A: Documentación de Despliegue con Docker
+- [0. Abstract / Definición del Proyecto](#project-definition-english)
+- [1. Introducción](#1-introducción)
+- [2. Estado del Arte](#2-estado-del-arte)
+- [3. Objetivos y Requisitos](#3-objetivos-y-requisitos)
+- [4. Diseño y Arquitectura](#4-diseño-y-arquitectura)
+- [5. Desarrollo e Implementación](#5-desarrollo-e-implementación)
+- [6. Pruebas y Resultados](#6-pruebas-y-resultados)
+- [7. Conclusiones y Trabajo Futuro](#7-conclusiones-y-trabajo-futuro)
+- [8. Bibliografía y Recursos](#8-bibliografía-y-recursos)
+- [9. Anexo A: Documentación de Despliegue con Docker](#anexo-a-documentación-de-despliegue-con-docker)
 
 ---
 
