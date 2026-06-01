@@ -353,7 +353,6 @@ block-beta
 ```
 
 ### Resultado Final
-> **Añadir captura:** Haz una captura del resultado real de la vista y añádela como `docs/pantallas/home.png`
 ![Resultado Final](./pantallas/home.png)
 
 ## 3. Detalle del Producto (`/catalog/{product}`)
@@ -387,8 +386,9 @@ block-beta
 ```
 
 ### Resultado Final
-> **Añadir captura:** Haz una captura del resultado real de esta vista y añádela como `docs/pantallas/producto.png`
-![Resultado Final](./pantallas/producto.png)
+![Resultado Final del Catálogo](./pantallas/catalogo.png)
+
+![Resultado Final del Producto](./pantallas/producto.png)
 
 En resumen, la arquitectura de Reposa+ garantiza que el código sea predecible para el desarrollador y que la interfaz sea un oasis de usabilidad y tranquilidad visual para el cliente.
 
