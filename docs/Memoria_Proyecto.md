@@ -297,6 +297,7 @@ Para asegurar un desarrollo sin desviaciones, se diseñaron esquemas estructural
 
 Vista principal de bienvenida de la tienda con productos destacados y categorías.
 
+### Idea Inicial (Wireframe)
 ```mermaid
 block-beta
   columns 20
@@ -351,6 +352,10 @@ block-beta
   Foot["© 2026 Reposa+. All rights reserved."]:20
 ```
 
+### Resultado Final
+> **Añadir captura:** Haz una captura del resultado real de la vista y añádela como `docs/pantallas/home.png`
+![Resultado Final](./pantallas/home.png)
+
 ## 3. Detalle del Producto (`/catalog/{product}`)
 
 Vista enfocada en la información detallada de una almohada específica.
@@ -380,6 +385,10 @@ block-beta
   %% Footer
   Foot["© 2026 Reposa+. All rights reserved."]:20
 ```
+
+### Resultado Final
+> **Añadir captura:** Haz una captura del resultado real de esta vista y añádela como `docs/pantallas/producto.png`
+![Resultado Final](./pantallas/producto.png)
 
 En resumen, la arquitectura de Reposa+ garantiza que el código sea predecible para el desarrollador y que la interfaz sea un oasis de usabilidad y tranquilidad visual para el cliente.
 
