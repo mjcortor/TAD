@@ -16,6 +16,13 @@ p { margin-bottom: 12pt; }
   <h3>Desarrollo de un E-commerce Especializado en Descanso Ergonómico Mediante Laravel y Bootstrap 5</h3>
   <br><br><br>
   <h3>Asignatura: Tecnologías Avanzadas de Desarrollo (TAD)<br>Convocatoria Oficial</h3>
+  <br><br><br>
+  <div style="font-size: 14pt; margin-top: 30px;">
+    <strong>Autores:</strong><br>
+    Javier Merino Jabalera<br>
+    Jonathan Javier Quishpe Maldonado<br>
+    Manuel Jesús Córdoba Toribio
+  </div>
 </div>
 
 <div style="page-break-after: always;"></div>
