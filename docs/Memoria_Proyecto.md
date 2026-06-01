@@ -1,5 +1,23 @@
-# Memoria del Proyecto: Reposa+
-## Desarrollo de un E-commerce Especializado en Descanso Ergonómico Mediante Laravel y Bootstrap 5
+<style>
+body { font-family: "Times New Roman", Times, serif; font-size: 12pt; line-height: 1.5; text-align: justify; }
+h1, h2, h3, h4 { font-family: "Arial", sans-serif; text-align: left; }
+h1 { font-size: 18pt; text-align: center; }
+h2 { font-size: 16pt; margin-top: 24pt; border-bottom: 1px solid #ccc; padding-bottom: 5px; }
+h3 { font-size: 14pt; }
+p { margin-bottom: 12pt; }
+.portada { text-align: center; margin-top: 100px; margin-bottom: 150px; }
+.portada h1 { font-size: 24pt; border: none; }
+.portada h3 { font-size: 14pt; font-weight: normal; margin-top: 50px; text-align: center; }
+</style>
+
+<div class="portada">
+  <h1>Memoria del Proyecto: Reposa+</h1>
+  <h3>Desarrollo de un E-commerce Especializado en Descanso Ergonómico Mediante Laravel y Bootstrap 5</h3>
+  <br><br><br>
+  <h3>Asignatura: Tecnologías Avanzadas de Desarrollo (TAD)<br>Convocatoria Oficial</h3>
+</div>
+
+<div style="page-break-after: always;"></div>
 
 ### Project Definition (English)
 **Reposa+** is an advanced, hyper-specialized e-commerce platform dedicated to ergonomic rest and wellness. Built from scratch using Laravel 11 and Docker, it offers a fast, secure, and accessible shopping experience. Key features include role-based access control (RBAC), an atomic transactional checkout process, multi-language support (i18n), and a custom-built shopping cart capable of handling guest sessions and authenticated users alike.
