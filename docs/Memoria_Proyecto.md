@@ -18,6 +18,7 @@ p { margin-bottom: 12pt; }
   <h3>Asignatura: Tecnologías Avanzadas de Desarrollo (TAD)<br>Convocatoria Oficial</h3>
   <br><br><br>
   <div style="font-size: 14pt; margin-top: 30px;">
+    <strong>Grupo:</strong> Índigo (Grupo 3)<br><br>
     <strong>Autores:</strong><br>
     Javier Merino Jabalera<br>
     Jonathan Javier Quishpe Maldonado<br>
